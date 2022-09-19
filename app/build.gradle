@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -61,4 +63,9 @@ dependencies {
     testImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
     testImplementation "io.strikt:strikt-core:$strikt_version"
     testImplementation "junit:junit:$extJunit"
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
 }

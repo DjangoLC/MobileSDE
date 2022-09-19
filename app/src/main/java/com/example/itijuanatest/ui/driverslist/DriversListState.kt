@@ -1,6 +1,6 @@
 package com.example.itijuanatest.ui.driverslist
 
-import com.example.itijuanatest.domain.models.Driver
+import com.example.itijuanatest.core.domain.models.Driver
 
 sealed class DriversListState {
     object Loading : DriversListState()
