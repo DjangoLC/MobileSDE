@@ -1,5 +1,6 @@
 package com.example.itijuanatest.ui.driverslist
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.itijuanatest.core.domain.usecases.GetAllDrivers
 import com.example.itijuanatest.utils.BaseViewModel
@@ -18,7 +19,7 @@ class DriversViewModel @Inject constructor(
 
     fun getAllDrivers() {
         launch {
-            getAllDrivers.invoke()
+            Log.e("TAG", "getAllDrivers: ${getAllDrivers.invoke().getOrNull().toString()}")
         }
     }
 }
