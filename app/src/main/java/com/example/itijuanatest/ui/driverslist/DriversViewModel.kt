@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.itijuanatest.core.data.Result
 
 @HiltViewModel
 class DriversViewModel @Inject constructor(
@@ -15,11 +16,21 @@ class DriversViewModel @Inject constructor(
     dispatcher: CoroutineDispatcher
 ) : BaseViewModel(dispatcher) {
 
-    private val _uiState = MutableLiveData<DriversListState>()
+    var _uiState = MutableLiveData<DriversListState>()
+        private set
 
     fun getAllDrivers() {
         launch {
-            Log.e("TAG", "getAllDrivers: ${getAllDrivers.invoke().getOrNull().toString()}")
+            _uiState.value = when (val call = getAllDrivers.invoke()) {
+                is Result.Error -> {
+                    Log.e("TAG", "getAllDrivers: ${call.exception.toString()}" )
+                    DriversListState.Error(Exception())
+                }
+                is Result.Success -> {
+                    Log.e("TAG", "getAllDrivers: ${call.data.toString()}" )
+                    DriversListState.Success(call.data)
+                }
+            }
         }
     }
 }

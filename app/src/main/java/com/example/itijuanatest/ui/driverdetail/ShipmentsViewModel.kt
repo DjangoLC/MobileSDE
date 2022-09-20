@@ -1,8 +1,6 @@
 package com.example.itijuanatest.ui.driverdetail
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.itijuanatest.core.domain.usecases.GetAllDrivers
 import com.example.itijuanatest.core.domain.usecases.GetShipments
 import com.example.itijuanatest.utils.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +18,7 @@ class ShipmentsViewModel @Inject constructor(
 
     fun getAllShipments() {
         launch {
-            Log.e("TAG", "getAllShipments: ${getShipment.invoke().getOrNull().toString()}")
+
         }
     }
 }
