@@ -6,17 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.itijuanatest.R
+import com.example.itijuanatest.databinding.FragmentDriverDetailBinding
 import com.example.itijuanatest.ui.driverslist.DriversViewModel
+import com.example.itijuanatest.utils.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DriverDetailFragment : Fragment(R.layout.fragment_driver_detail) {
+class DriverDetailFragment : BaseFragment<FragmentDriverDetailBinding>() {
 
     private val shipmentsViewModel: ShipmentsViewModel by viewModels()
+    private val args: DriverDetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        shipmentsViewModel.getAllShipments()
+        shipmentsViewModel.calculateShipment(args.driverName)
+        binding.tvDriverName.text = args.driverName
+    }
+
+    override fun createBinding(
+        inflater: LayoutInflater,
+        parent: ViewGroup?
+    ): FragmentDriverDetailBinding {
+        return FragmentDriverDetailBinding.inflate(inflater, parent, false)
     }
 }

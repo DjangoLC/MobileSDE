@@ -10,14 +10,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShipmentsViewModel @Inject constructor(
-    private val getShipment: GetShipments,
+    private val getShipments: GetShipments,
     dispatcher: CoroutineDispatcher
 ) : BaseViewModel(dispatcher) {
 
     private val _uiState = MutableLiveData<ShipmentListState>()
 
-    fun getAllShipments() {
+    fun calculateShipment(driverName: String) {
         launch {
+            val shipments = getShipments.calculateBetterShipment(driverName)
 
         }
     }
