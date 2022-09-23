@@ -13,6 +13,6 @@
     <fragment
         android:id="@+id/driverDetailFragment"
         android:name="com.example.itijuanatest.ui.driverdetail.DriverDetailFragment"
-        android:label="fragment_driver_detail"
+        android:label="@string/driver_detail"
         tools:layout="@layout/fragment_driver_detail" />
 </navigation>
