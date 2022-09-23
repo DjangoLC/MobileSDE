@@ -17,7 +17,7 @@ abstract class BaseFragment<B: ViewBinding>: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = createBinding(inflater, container)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 
     abstract fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): B
