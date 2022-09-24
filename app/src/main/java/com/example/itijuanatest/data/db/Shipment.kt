@@ -5,11 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Shipment(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val addressName: String,
-    val driverId: Long,
-    val isAvailable: Boolean = false,
-    val score: Double = 0.0
+    val driverId: Long
 ) {
     companion object {
         const val TABLE_NAME = "Shipment"

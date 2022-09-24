@@ -8,6 +8,6 @@ fun RawDriver.toDomain() =
         DriverDomain(0, it)
     }
 
-fun DriverDomain.toDb() = DriverDb(name = this.name)
+fun DriverDomain.toDb() = DriverDb(id = this.id, name = this.name)
 
 fun DriverDb.toDomain() = DriverDomain(id = this.id, name = this.name)

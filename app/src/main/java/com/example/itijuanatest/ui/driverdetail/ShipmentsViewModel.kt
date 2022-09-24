@@ -18,7 +18,6 @@ class ShipmentsViewModel @Inject constructor(
 
     fun calculateShipment(driverName: String) {
         launch {
-            val shipments = calculateBestShipmentByDriver.invoke(driverName)
 
         }
     }

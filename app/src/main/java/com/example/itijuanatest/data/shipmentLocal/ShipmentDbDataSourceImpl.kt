@@ -12,4 +12,8 @@ class ShipmentDbDataSourceImpl(private val shipmentDao: ShipmentDao) : Shipments
     override suspend fun getAllShipments(): List<Shipment> {
         return shipmentDao.getAllShipments().map { it.toDb() }
     }
+
+    override suspend fun updateShipment(shipment: Shipment, driverId: Long) {
+        return shipmentDao.updateShipment(shipment.toDb().copy(driverId = driverId))
+    }
 }

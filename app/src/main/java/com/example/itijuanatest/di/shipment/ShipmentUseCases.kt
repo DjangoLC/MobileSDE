@@ -1,5 +1,6 @@
 package com.example.itijuanatest.di.shipment
 
+import com.example.itijuanatest.core.data.repositories.driver.DriversRepository
 import com.example.itijuanatest.core.data.repositories.shipment.ShipmentRepository
 import com.example.itijuanatest.core.domain.StringUtils
 import com.example.itijuanatest.core.domain.UtilsMath
@@ -16,7 +17,7 @@ class ShipmentUseCases {
 
     @Provides
     @ViewModelScoped
-    fun provideGetShipmentsUseCase(shipmentRepository: ShipmentRepository) =
-        CalculateBestShipmentByDriver(shipmentRepository, UtilsMath(), StringUtils())
+    fun provideGetShipmentsUseCase(shipmentRepository: ShipmentRepository, driversRepository: DriversRepository) =
+        CalculateBestShipmentByDriver(shipmentRepository, driversRepository, UtilsMath(), StringUtils())
 
 }

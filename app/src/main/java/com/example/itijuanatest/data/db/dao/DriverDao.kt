@@ -6,7 +6,6 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.itijuanatest.data.db.Driver
 import com.example.itijuanatest.data.db.DriverAndLibrary
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DriverDao {
@@ -25,7 +24,7 @@ interface DriverDao {
     suspend fun insertDriversList(drivers: List<Driver>)
 
     @Query("SELECT * FROM ${Driver.TABLE_NAME}")
-    fun getAllDrivers(): Flow<List<Driver>>
+    fun getAllDrivers(): List<Driver>
 
     @Query("SELECT COUNT(id) FROM ${Driver.TABLE_NAME}")
     suspend fun driversCount(): Int

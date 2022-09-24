@@ -3,21 +3,22 @@ package com.example.itijuanatest.core.data.repositories.driver
 import com.example.itijuanatest.core.data.datasource.DriversDbDataSource
 import com.example.itijuanatest.core.data.datasource.DriversFileDataSource
 import com.example.itijuanatest.core.domain.models.Driver
-import com.example.itijuanatest.data.db.dao.DriverDao
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class DriversRepositoryImpl(
     private val driversFileDataSource: DriversFileDataSource,
     private val driversDbDataSource: DriversDbDataSource
 ) : DriversRepository {
 
-    override suspend fun getAllDrivers(): Flow<List<Driver>> {
-        val driversInFile = driversFileDataSource.getAllDrivers()
-        val shouldInsert = (driversInFile?.isNotEmpty() == true && driversDbDataSource.isEmpty())
-        if (shouldInsert) {
-            driversInFile?.let { driversDbDataSource.insertDrivers(driversInFile) }
+    override suspend fun getAllDrivers(): List<Driver> {
+        return withContext(Dispatchers.IO) {
+            val driversInFile = driversFileDataSource.getAllDrivers()
+            val shouldInsert = (driversInFile?.isNotEmpty() == true && driversDbDataSource.isEmpty())
+            if (shouldInsert) {
+                driversInFile?.let { driversDbDataSource.insertDrivers(driversInFile) }
+            }
+            driversDbDataSource.getAllDrivers()
         }
-        return driversDbDataSource.getAllDrivers()
     }
 }
