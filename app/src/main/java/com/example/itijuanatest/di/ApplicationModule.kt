@@ -3,6 +3,7 @@ package com.example.itijuanatest.di
 import android.content.Context
 import com.example.itijuanatest.core.data.datasource.DriversLocalDataSource
 import com.example.itijuanatest.core.data.datasource.ShipmentsLocalDataSource
+import com.example.itijuanatest.data.db.AppDatabase
 import com.example.itijuanatest.data.driverLocal.DriversLocalDataSourceImpl
 import com.example.itijuanatest.data.driverLocal.ParserRawDriverData
 import com.example.itijuanatest.data.shipmentLocal.ParserRawShipmentData
@@ -43,4 +44,15 @@ class ApplicationModule {
     @Singleton
     fun provideShipmentsLocalDataSource(parserRawShipmentData: ParserRawShipmentData): ShipmentsLocalDataSource = ShipmentsLocalDataSourceImpl(parserRawShipmentData)
 
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext appContext: Context): AppDatabase = AppDatabase.buildDatabase(appContext)
+
+    @Provides
+    @Singleton
+    fun provideDriverDao(appDatabase: AppDatabase) = appDatabase.driversDao()
+
+    @Provides
+    @Singleton
+    fun provideShipmentDao(appDatabase: AppDatabase) = appDatabase.shipmentsDao()
 }

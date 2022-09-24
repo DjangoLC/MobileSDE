@@ -11,19 +11,18 @@ data class GetShipments @Inject constructor(private val shipmentRepository: Ship
     private suspend fun invoke() = shipmentRepository.getAllShipments()
 
     suspend fun calculateBetterShipment(driverName: String): String {
-        val shipments = invoke()
-        when (shipments) {
+        when (val shipments = invoke()) {
             is Result.Error -> {
 
             }
             is Result.Success -> {
-                val evenShipmentsName =  shipments.data.filter { math.isEven(it.addressName.trim().length) }
+               /* val evenShipmentsName =  shipments.data.filter { math.isEven(it.addressName.trim().length) }
                 val scores = evenShipmentsName.map {
-                    it.copy(score = stringUtils.getVowelsCount(driverName) * 1.5)
+                    //it.copy(score = stringUtils.getVowelsCount(driverName) * 1.5)
                 }.sortedByDescending {
-                    it.addressName
+                    //it.addressName
                 }
-                println(scores)
+                println(scores)*/
             }
         }
         return ""
