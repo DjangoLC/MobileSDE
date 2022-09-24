@@ -10,4 +10,4 @@ fun RawShipment.toDomain() =
 
 fun ShipmentDomain.toDb() = ShipmentDb(id = this.id, driverId = this.id, addressName = this.addressName)
 
-fun ShipmentDb.toDb() = ShipmentDomain(id = this.id, addressName = this.addressName)
+fun ShipmentDb.toDomain() = ShipmentDomain(id = this.id, addressName = this.addressName)

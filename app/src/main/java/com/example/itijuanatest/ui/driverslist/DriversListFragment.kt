@@ -25,7 +25,7 @@ class DriversListFragment : BaseFragment<FragmentDriversListBinding>() {
     }
 
     private fun navigateToDetail(driver: Driver) {
-        findNavController().navigate(DriversListFragmentDirections.actionDriversListFragmentToDriverDetailFragment(driver.name))
+        findNavController().navigate(DriversListFragmentDirections.actionDriversListFragmentToDriverDetailFragment(driver.id))
     }
 
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): FragmentDriversListBinding {

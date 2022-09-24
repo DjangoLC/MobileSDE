@@ -2,6 +2,7 @@ package com.example.itijuanatest.data.driverLocal
 
 import com.example.itijuanatest.core.data.datasource.DriversDbDataSource
 import com.example.itijuanatest.core.domain.models.Driver
+import com.example.itijuanatest.core.domain.models.DriverAndShipment
 import com.example.itijuanatest.data.db.dao.DriverDao
 import kotlinx.coroutines.flow.map
 
@@ -16,5 +17,9 @@ class DriversDbDataSourceImpl(private val driverDao: DriverDao) : DriversDbDataS
 
     override suspend fun isEmpty(): Boolean {
         return driverDao.driversCount() == 0
+    }
+
+    override suspend fun getDriverWitShipment(driverId: Long): DriverAndShipment {
+        return driverDao.getDriverAndShipment(driverId).toDomain()
     }
 }

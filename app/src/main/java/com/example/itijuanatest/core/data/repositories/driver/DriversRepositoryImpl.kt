@@ -3,6 +3,7 @@ package com.example.itijuanatest.core.data.repositories.driver
 import com.example.itijuanatest.core.data.datasource.DriversDbDataSource
 import com.example.itijuanatest.core.data.datasource.DriversFileDataSource
 import com.example.itijuanatest.core.domain.models.Driver
+import com.example.itijuanatest.core.domain.models.DriverAndShipment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -20,5 +21,9 @@ class DriversRepositoryImpl(
             }
             driversDbDataSource.getAllDrivers()
         }
+    }
+
+    override suspend fun getDriverWitShipment(driverId: Long): DriverAndShipment {
+        return driversDbDataSource.getDriverWitShipment(driverId)
     }
 }

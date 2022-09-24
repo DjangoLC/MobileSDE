@@ -21,8 +21,21 @@ class DriverDetailFragment : BaseFragment<FragmentDriverDetailBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        shipmentsViewModel.calculateShipment(args.driverName)
-        binding.tvDriverName.text = args.driverName
+        shipmentsViewModel.getDriver(args.driverId)
+        observe()
+    }
+
+    private fun observe() {
+        shipmentsViewModel._uiState.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is ShipmentListState.Error -> TODO()
+                ShipmentListState.Loading -> TODO()
+                is ShipmentListState.Success -> {
+                    binding.tvDriverName.text = state.data.driver.name
+                    binding.tvShipmentName.text = state.data.shipment.addressName
+                }
+            }
+        }
     }
 
     override fun createBinding(

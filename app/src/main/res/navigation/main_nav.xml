@@ -20,7 +20,7 @@
         android:label="@string/driver_detail"
         tools:layout="@layout/fragment_driver_detail" >
         <argument
-            android:name="driverName"
-            app:argType="string" />
+            android:name="driverId"
+            app:argType="long" />
     </fragment>
 </navigation>
