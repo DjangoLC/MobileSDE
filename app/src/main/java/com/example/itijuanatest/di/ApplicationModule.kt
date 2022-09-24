@@ -1,10 +1,13 @@
 package com.example.itijuanatest.di
 
 import android.content.Context
-import com.example.itijuanatest.core.data.datasource.DriversLocalDataSource
+import com.example.itijuanatest.core.data.datasource.DriversDbDataSource
+import com.example.itijuanatest.core.data.datasource.DriversFileDataSource
 import com.example.itijuanatest.core.data.datasource.ShipmentsLocalDataSource
 import com.example.itijuanatest.data.db.AppDatabase
-import com.example.itijuanatest.data.driverLocal.DriversLocalDataSourceImpl
+import com.example.itijuanatest.data.db.dao.DriverDao
+import com.example.itijuanatest.data.driverLocal.DriversDbDataSourceImpl
+import com.example.itijuanatest.data.driverLocal.DriversFileDataSourceImpl
 import com.example.itijuanatest.data.driverLocal.ParserRawDriverData
 import com.example.itijuanatest.data.shipmentLocal.ParserRawShipmentData
 import com.example.itijuanatest.data.shipmentLocal.ShipmentsLocalDataSourceImpl
@@ -38,7 +41,11 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideDriversLocalDataSource(parserRawDriverData: ParserRawDriverData): DriversLocalDataSource = DriversLocalDataSourceImpl(parserRawDriverData)
+    fun provideDriversLocalDataSource(parserRawDriverData: ParserRawDriverData): DriversFileDataSource = DriversFileDataSourceImpl(parserRawDriverData)
+
+    @Provides
+    @Singleton
+    fun provideDriversDbDataSource(driverDao: DriverDao): DriversDbDataSource = DriversDbDataSourceImpl(driverDao)
 
     @Provides
     @Singleton

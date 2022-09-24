@@ -8,4 +8,8 @@ class ShipmentRepositoryImpl(private val localShipmentDataSource: ShipmentsLocal
     override suspend fun getAllShipments(): Result<List<Shipment>> {
        return localShipmentDataSource.getAllShipments()
     }
+
+    override suspend fun updateShipment(shipment: Shipment) {
+        TODO("Not yet implemented")
+    }
 }

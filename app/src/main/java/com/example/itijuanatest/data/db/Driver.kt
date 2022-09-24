@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Driver(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String
 ) {
     companion object {
