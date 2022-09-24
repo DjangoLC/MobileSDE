@@ -9,12 +9,14 @@ import kotlinx.coroutines.flow.map
 
 class DriversRepositoryImpl(
     private val driversFileDataSource: DriversFileDataSource,
-    private val driversDbDataSource: DriversDbDataSource) : DriversRepository {
+    private val driversDbDataSource: DriversDbDataSource
+) : DriversRepository {
 
     override suspend fun getAllDrivers(): Flow<List<Driver>> {
         val driversInFile = driversFileDataSource.getAllDrivers()
-        driversInFile?.isNotEmpty()?.let {
-            driversDbDataSource.insertDrivers(driversInFile)
+        val shouldInsert = (driversInFile?.isNotEmpty() == true && driversDbDataSource.isEmpty())
+        if (shouldInsert) {
+            driversInFile?.let { driversDbDataSource.insertDrivers(driversInFile) }
         }
         return driversDbDataSource.getAllDrivers()
     }

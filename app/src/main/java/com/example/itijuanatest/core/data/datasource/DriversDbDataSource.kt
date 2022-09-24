@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface DriversDbDataSource {
     suspend fun getAllDrivers() : Flow<List<Driver>>
     suspend fun insertDrivers(driversInFile: List<Driver>)
+    suspend fun isEmpty(): Boolean
 }

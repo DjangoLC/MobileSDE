@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Shipment(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val addressName: String,
     val driverId: Long,
     val isAvailable: Boolean = false,

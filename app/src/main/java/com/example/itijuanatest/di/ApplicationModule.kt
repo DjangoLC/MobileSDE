@@ -3,13 +3,16 @@ package com.example.itijuanatest.di
 import android.content.Context
 import com.example.itijuanatest.core.data.datasource.DriversDbDataSource
 import com.example.itijuanatest.core.data.datasource.DriversFileDataSource
-import com.example.itijuanatest.core.data.datasource.ShipmentsLocalDataSource
+import com.example.itijuanatest.core.data.datasource.ShipmentsDbDataSource
+import com.example.itijuanatest.core.data.datasource.ShipmentsFileDataSource
 import com.example.itijuanatest.data.db.AppDatabase
 import com.example.itijuanatest.data.db.dao.DriverDao
+import com.example.itijuanatest.data.db.dao.ShipmentDao
 import com.example.itijuanatest.data.driverLocal.DriversDbDataSourceImpl
 import com.example.itijuanatest.data.driverLocal.DriversFileDataSourceImpl
 import com.example.itijuanatest.data.driverLocal.ParserRawDriverData
 import com.example.itijuanatest.data.shipmentLocal.ParserRawShipmentData
+import com.example.itijuanatest.data.shipmentLocal.ShipmentDbDataSourceImpl
 import com.example.itijuanatest.data.shipmentLocal.ShipmentsLocalDataSourceImpl
 import dagger.Module
 import dagger.Provides
@@ -49,7 +52,11 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideShipmentsLocalDataSource(parserRawShipmentData: ParserRawShipmentData): ShipmentsLocalDataSource = ShipmentsLocalDataSourceImpl(parserRawShipmentData)
+    fun provideShipmentsDbDataSource(shipmentDao: ShipmentDao): ShipmentsDbDataSource = ShipmentDbDataSourceImpl(shipmentDao)
+
+    @Provides
+    @Singleton
+    fun provideShipmentsLocalDataSource(parserRawShipmentData: ParserRawShipmentData): ShipmentsFileDataSource = ShipmentsLocalDataSourceImpl(parserRawShipmentData)
 
     @Provides
     @Singleton

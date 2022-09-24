@@ -1,6 +1,6 @@
 package com.example.itijuanatest.core.domain.models
 
 data class Shipment(
-    val id: String,
+    val id: Long,
     val addressName: String
 )

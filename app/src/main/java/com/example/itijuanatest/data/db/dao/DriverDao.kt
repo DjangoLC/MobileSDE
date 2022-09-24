@@ -26,4 +26,7 @@ interface DriverDao {
 
     @Query("SELECT * FROM ${Driver.TABLE_NAME}")
     fun getAllDrivers(): Flow<List<Driver>>
+
+    @Query("SELECT COUNT(id) FROM ${Driver.TABLE_NAME}")
+    suspend fun driversCount(): Int
 }

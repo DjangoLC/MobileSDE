@@ -16,4 +16,8 @@ class DriversDbDataSourceImpl(private val driverDao: DriverDao) : DriversDbDataS
     override suspend fun insertDrivers(driversInFile: List<Driver>) {
         return driverDao.insertDriversList(driversInFile.map { it.toDb() })
     }
+
+    override suspend fun isEmpty(): Boolean {
+        return driverDao.driversCount() == 0
+    }
 }

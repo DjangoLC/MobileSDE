@@ -1,6 +1,7 @@
 package com.example.itijuanatest.di.shipment
 
-import com.example.itijuanatest.core.data.datasource.ShipmentsLocalDataSource
+import com.example.itijuanatest.core.data.datasource.ShipmentsDbDataSource
+import com.example.itijuanatest.core.data.datasource.ShipmentsFileDataSource
 import com.example.itijuanatest.core.data.repositories.shipment.ShipmentRepository
 import com.example.itijuanatest.core.data.repositories.shipment.ShipmentRepositoryImpl
 import dagger.Module
@@ -14,6 +15,6 @@ import dagger.hilt.android.scopes.ViewModelScoped
 class ShipmentRepoModule {
     @ViewModelScoped
     @Provides
-    fun provideShipmentRepository(localDataSource: ShipmentsLocalDataSource):
-            ShipmentRepository = ShipmentRepositoryImpl(localDataSource)
+    fun provideShipmentRepository(localDataSource: ShipmentsFileDataSource, shipmentsDbDataSource: ShipmentsDbDataSource):
+            ShipmentRepository = ShipmentRepositoryImpl(localDataSource, shipmentsDbDataSource)
 }

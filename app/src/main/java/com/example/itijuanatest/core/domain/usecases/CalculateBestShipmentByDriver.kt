@@ -22,20 +22,20 @@ data class CalculateBestShipmentByDriver @Inject constructor(
 ) {
 
     suspend fun invoke(driverName: String): Result<String> {
-        return when (val shipments = shipmentRepository.getAllShipments()) {
-            is Result.Error -> {
-                Result.Error(Throwable("there is a problem trying to calculate the better shipment to driver"))
-            }
-            is Result.Success -> {
-                /*val evenShipmentsName =  shipments.data.filter { math.isEven(it.addressName.trim().length) }
+        val shipments = shipmentRepository.getAllShipments()
+        /*is Result.Error -> {
+            Result.Error(Throwable("there is a problem trying to calculate the better shipment to driver"))
+        }
+        is Result.Success -> {
+            *//*val evenShipmentsName =  shipments.data.filter { math.isEven(it.addressName.trim().length) }
                  val scores = evenShipmentsName.map {
                      it.copy(score = stringUtils.getVowelsCount(driverName) * 1.5)
                  }.sortedByDescending {
                      it.addressName
                  }
-                 println(scores)*/
-                Result.Success("")
-            }
-        }
+                 println(scores)*//*
+
+            }*/
+        return Result.Success("")
     }
 }
