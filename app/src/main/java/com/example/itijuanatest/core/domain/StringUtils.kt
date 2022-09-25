@@ -10,6 +10,10 @@ fun String.getVowelsCount(): Int {
 
 fun String.getConsonants(): Int {
     val clearString = this.lowercase().trim().toCharArray()
-    val result = clearString.distinctBy { vowels.contains(it) }
+    val result = clearString.filter { !vowels.contains(it) }
     return result.count()
+}
+
+fun String.trimAll(): String {
+    return replace(" ", "")
 }

@@ -2,10 +2,7 @@ package com.example.itijuanatest.core.domain.usecases
 
 import com.example.itijuanatest.core.data.repositories.driver.DriversRepository
 import com.example.itijuanatest.core.data.repositories.shipment.ShipmentRepository
-import com.example.itijuanatest.core.domain.commonsFactorOf
-import com.example.itijuanatest.core.domain.getConsonants
-import com.example.itijuanatest.core.domain.getVowelsCount
-import com.example.itijuanatest.core.domain.isEven
+import com.example.itijuanatest.core.domain.*
 import com.example.itijuanatest.core.domain.models.Driver
 import com.example.itijuanatest.core.domain.models.Shipment
 import javax.inject.Inject
@@ -49,8 +46,8 @@ data class CalculateBestShipmentByDriver @Inject constructor(
                 var score = it.getMaxScore(isEven)
                 if (
                     hasMoreThanOneCommonFactor(
-                        shipment.addressName.trim().commonsFactorOf(),
-                        it.name.trim().commonsFactorOf()
+                        shipment.addressName.trimAll().commonsFactorOf(),
+                        it.name.trimAll().commonsFactorOf()
                     )
                 ) {
                     score *= 1.5
