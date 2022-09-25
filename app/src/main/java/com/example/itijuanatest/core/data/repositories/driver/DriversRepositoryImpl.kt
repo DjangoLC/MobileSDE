@@ -23,7 +23,7 @@ class DriversRepositoryImpl(
         }
     }
 
-    override suspend fun getDriverWitShipment(driverId: Long): DriverAndShipment {
+    override suspend fun getDriverWithShipment(driverId: Long): DriverAndShipment {
         return driversDbDataSource.getDriverWitShipment(driverId)
     }
 }

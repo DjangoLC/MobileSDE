@@ -13,8 +13,9 @@ class ShipmentRepositoryImpl(
     override suspend fun getAllShipments(): List<Shipment> {
         return withContext(Dispatchers.IO) {
             val inFileShipment = fileShipmentDataSource.getAllShipments()
-            inFileShipment?.let {
-                shipmentsDbDataSource.insertShipments(inFileShipment)
+            val shouldInsert = (inFileShipment?.isNotEmpty() == true && shipmentsDbDataSource.isEmpty())
+            if (shouldInsert) {
+                inFileShipment?.let { shipmentsDbDataSource.insertShipments(it) }
             }
             shipmentsDbDataSource.getAllShipments()
         }

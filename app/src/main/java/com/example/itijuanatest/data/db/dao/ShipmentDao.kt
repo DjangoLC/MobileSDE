@@ -1,10 +1,6 @@
 package com.example.itijuanatest.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.itijuanatest.data.db.Shipment
 
 @Dao
@@ -21,4 +17,7 @@ interface ShipmentDao {
 
     @Query("SELECT * FROM ${Shipment.TABLE_NAME}")
     suspend fun getAllShipments(): List<Shipment>
+
+    @Query("SELECT COUNT(id) FROM ${Shipment.TABLE_NAME}")
+    suspend fun isEmpty(): Int
 }

@@ -16,4 +16,8 @@ class ShipmentDbDataSourceImpl(private val shipmentDao: ShipmentDao) : Shipments
     override suspend fun updateShipment(shipment: Shipment, driverId: Long) {
         return shipmentDao.updateShipment(shipment.toDb().copy(driverId = driverId))
     }
+
+    override suspend fun isEmpty(): Boolean {
+        return shipmentDao.isEmpty() == 0
+    }
 }

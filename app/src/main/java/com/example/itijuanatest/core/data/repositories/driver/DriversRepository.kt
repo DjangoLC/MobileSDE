@@ -5,5 +5,5 @@ import com.example.itijuanatest.core.domain.models.DriverAndShipment
 
 interface DriversRepository {
     suspend fun getAllDrivers() : List<Driver>
-    suspend fun getDriverWitShipment(driverId: Long): DriverAndShipment
+    suspend fun getDriverWithShipment(driverId: Long): DriverAndShipment
 }

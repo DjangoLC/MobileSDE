@@ -2,8 +2,12 @@ package com.example.itijuanatest.core.domain.usecases
 
 import com.example.itijuanatest.core.data.repositories.driver.DriversRepository
 import com.example.itijuanatest.core.data.repositories.shipment.ShipmentRepository
-import com.example.itijuanatest.core.domain.StringUtils
-import com.example.itijuanatest.core.domain.UtilsMath
+import com.example.itijuanatest.core.domain.commonsFactorOf
+import com.example.itijuanatest.core.domain.getConsonants
+import com.example.itijuanatest.core.domain.getVowelsCount
+import com.example.itijuanatest.core.domain.isEven
+import com.example.itijuanatest.core.domain.models.Driver
+import com.example.itijuanatest.core.domain.models.Shipment
 import javax.inject.Inject
 
 /*If the length of the shipment's destination street name is even, the base suitability score (SS)
@@ -17,29 +21,47 @@ SS is increased by 50% above the base SS.*/
 
 data class CalculateBestShipmentByDriver @Inject constructor(
     private val shipmentRepository: ShipmentRepository,
-    private val driversRepository: DriversRepository,
-    val math: UtilsMath,
-    val stringUtils: StringUtils
+    private val driversRepository: DriversRepository
 ) {
 
     suspend fun invoke() {
         val shipments = shipmentRepository.getAllShipments()
         val drivers = driversRepository.getAllDrivers()
-
-        shipments.forEach { shipment ->
-            val isEven = math.isEven(shipment.addressName.length)
-            val map = mutableListOf<Pair<Double, Long>>()
-            drivers.filter { it.isAvailable }.map { driver ->
-                val score: Double = if (isEven) stringUtils.getVowelsCount(driver.name) * 1.5 else   stringUtils.getConsonants(driver.name) * 1.0
-                map.add(Pair(score, driver.id))
-            }
-            map.sortWith(compareByDescending {
-                it.first
-            })
-            map.firstOrNull()?.let { pair ->
-                shipmentRepository.updateShipment(shipment, pair.second)
-                drivers.find { it.id == pair.second }?.isAvailable = false
-            }
+        val map = mutableMapOf<Shipment, Pair<Double, Driver>>()
+        val sortDrivers = drivers.sortedByDescending {
+            it.name.length
         }
+        val sortEvenDrivers = sortDrivers.sortedByDescending {
+            it.getMaxScore(true)
+        }
+        val sortOddDrivers = sortDrivers.sortedByDescending {
+            it.getMaxScore(false)
+        }
+
+        shipments.sortedByDescending {
+            it.addressName.length
+        }.forEach { shipment ->
+            val isEven = shipment.isEven()
+            val validDrivers = if (isEven) sortEvenDrivers else sortOddDrivers
+            val maxDriver = validDrivers.first { it.isAvailable }
+            var score = maxDriver.getMaxScore(isEven)
+            if (
+                hasMoreThanOneCommonFactor(
+                    shipment.addressName.trim().commonsFactorOf(),
+                    maxDriver.name.trim().commonsFactorOf()
+                )
+            ) {
+                score = maxDriver.getMaxScore(isEven) * 1.5
+            }
+            map[shipment] = Pair(score, maxDriver)
+            sortEvenDrivers.find { it.id == maxDriver.id }?.isAvailable = false
+            sortOddDrivers.find { it.id == maxDriver.id }?.isAvailable = false
+            shipmentRepository.updateShipment(shipment, maxDriver.id)
+        }
+    }
+
+    private fun hasMoreThanOneCommonFactor(list: List<Int>, list2: List<Int>): Boolean {
+        val result = list.intersect(list2)
+        return (result.size > 1 && result.contains(1))
     }
 }

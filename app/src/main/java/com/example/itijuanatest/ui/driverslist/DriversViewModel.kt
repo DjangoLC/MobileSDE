@@ -16,8 +16,7 @@ class DriversViewModel @Inject constructor(
     dispatcher: CoroutineDispatcher
 ) : BaseViewModel(dispatcher) {
 
-    var _uiState = MutableLiveData<DriversListState>()
-        private set
+     val _uiState = MutableLiveData<DriversListState>()
 
     fun getAllDrivers() {
         launch {

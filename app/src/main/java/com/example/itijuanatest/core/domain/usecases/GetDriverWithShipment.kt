@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class GetDriverWithShipment @Inject constructor(private val driversRepository: DriversRepository){
     suspend fun invoke(driverId: Long): DriverAndShipment {
-        return driversRepository.getDriverWitShipment(driverId)
+        return driversRepository.getDriverWithShipment(driverId)
     }
 }

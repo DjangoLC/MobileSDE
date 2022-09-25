@@ -1,7 +1,6 @@
 package com.example.itijuanatest.ui.driverdetail
 
 import androidx.lifecycle.MutableLiveData
-import com.example.itijuanatest.core.domain.usecases.CalculateBestShipmentByDriver
 import com.example.itijuanatest.core.domain.usecases.GetDriverWithShipment
 import com.example.itijuanatest.utils.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
