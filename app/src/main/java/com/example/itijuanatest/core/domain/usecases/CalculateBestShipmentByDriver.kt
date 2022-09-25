@@ -43,20 +43,28 @@ data class CalculateBestShipmentByDriver @Inject constructor(
         }.forEach { shipment ->
             val isEven = shipment.isEven()
             val validDrivers = if (isEven) sortEvenDrivers else sortOddDrivers
-            val maxDriver = validDrivers.first { it.isAvailable }
-            var score = maxDriver.getMaxScore(isEven)
-            if (
-                hasMoreThanOneCommonFactor(
-                    shipment.addressName.trim().commonsFactorOf(),
-                    maxDriver.name.trim().commonsFactorOf()
-                )
-            ) {
-                score = maxDriver.getMaxScore(isEven) * 1.5
+            var maxScore = Double.MIN_VALUE
+            var driverId = Long.MIN_VALUE
+            validDrivers.filter { it.isAvailable }.forEach {
+                var score = it.getMaxScore(isEven)
+                if (
+                    hasMoreThanOneCommonFactor(
+                        shipment.addressName.trim().commonsFactorOf(),
+                        it.name.trim().commonsFactorOf()
+                    )
+                ) {
+                    score *= 1.5
+                }
+                if (maxScore < score) {
+                    maxScore = score
+                    driverId = it.id
+                    map[shipment] = Pair(score, it)
+                }
             }
-            map[shipment] = Pair(score, maxDriver)
-            sortEvenDrivers.find { it.id == maxDriver.id }?.isAvailable = false
-            sortOddDrivers.find { it.id == maxDriver.id }?.isAvailable = false
-            shipmentRepository.updateShipment(shipment, maxDriver.id)
+
+            sortEvenDrivers.find { it.id == driverId }?.isAvailable = false
+            sortOddDrivers.find { it.id == driverId }?.isAvailable = false
+            shipmentRepository.updateShipment(shipment, driverId)
         }
     }
 
