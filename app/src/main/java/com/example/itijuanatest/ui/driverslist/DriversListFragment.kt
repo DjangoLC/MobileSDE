@@ -43,7 +43,7 @@ class DriversListFragment : BaseFragment<FragmentDriversListBinding>() {
     }
 
     private fun observeData() {
-        driversViewModel._uiState.observe(viewLifecycleOwner) {
+        driversViewModel.uiState.observe(viewLifecycleOwner) {
             when(it) {
                 is DriversListState.Error -> {
 

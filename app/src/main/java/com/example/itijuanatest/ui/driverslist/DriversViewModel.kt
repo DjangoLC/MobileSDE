@@ -1,5 +1,6 @@
 package com.example.itijuanatest.ui.driverslist
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.itijuanatest.core.domain.usecases.CalculateBestShipmentByDriver
 import com.example.itijuanatest.core.domain.usecases.GetAllDrivers
@@ -16,7 +17,8 @@ class DriversViewModel @Inject constructor(
     dispatcher: CoroutineDispatcher
 ) : BaseViewModel(dispatcher) {
 
-     val _uiState = MutableLiveData<DriversListState>()
+    private val _uiState = MutableLiveData<DriversListState>()
+    val uiState: LiveData<DriversListState> = _uiState
 
     fun getAllDrivers() {
         launch {

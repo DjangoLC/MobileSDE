@@ -1,5 +1,6 @@
 package com.example.itijuanatest.ui.driverdetail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.itijuanatest.core.domain.usecases.GetDriverWithShipment
 import com.example.itijuanatest.utils.BaseViewModel
@@ -14,8 +15,8 @@ class ShipmentsViewModel @Inject constructor(
     dispatcher: CoroutineDispatcher
 ) : BaseViewModel(dispatcher) {
 
-    var _uiState = MutableLiveData<ShipmentListState>()
-        private set
+    private val  _uiState = MutableLiveData<ShipmentListState>()
+    val uiState: LiveData<ShipmentListState> = _uiState
 
     fun getDriver(driverId: Long) {
         launch {

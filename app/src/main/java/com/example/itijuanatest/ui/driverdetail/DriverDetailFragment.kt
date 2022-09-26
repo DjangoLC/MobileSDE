@@ -26,7 +26,7 @@ class DriverDetailFragment : BaseFragment<FragmentDriverDetailBinding>() {
     }
 
     private fun observe() {
-        shipmentsViewModel._uiState.observe(viewLifecycleOwner) { state ->
+        shipmentsViewModel.uiState.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is ShipmentListState.Error -> TODO()
                 ShipmentListState.Loading -> TODO()
